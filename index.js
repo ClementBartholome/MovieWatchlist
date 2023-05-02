@@ -76,7 +76,7 @@ function toggleWatchlist(event) {
 }
 
 function displayMovies() {
-  fetch(`http://www.omdbapi.com/?apikey=ab1b683f&s=${inputEl.value}`)
+  fetch(`https://www.omdbapi.com/?apikey=ab1b683f&s=${inputEl.value}`)
     .then((response) => response.json())
     .then((data) => {
       // store all results in an array
@@ -90,7 +90,7 @@ function displayMovies() {
       // loop to display all movie results
       for (let i = 0; i < searchResultArr.length; i += 1) {
         fetch(
-          `http://www.omdbapi.com/?apikey=ab1b683f&i=${searchResultArr[i].imdbID}`
+          `https://www.omdbapi.com/?apikey=ab1b683f&i=${searchResultArr[i].imdbID}`
         )
           .then((response) => response.json())
           .then((data) => {

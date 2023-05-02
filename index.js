@@ -12,10 +12,10 @@ const main = document.getElementById("main");
 const moviesArray = [];
 const moviesWatchlist = [];
 
-/*
+/* 
 
 function isMovieAlreadyInWatchlist(movieId) {
-  // Get movie watchlist from local storage 
+  // Get movie watchlist from local storage
   // if there's no watchlist, initialize an empty arr
   const savedMovies = JSON.parse(localStorage.getItem("movies")) || [];
   // use some method to check if there's one item with the movieId passed in as a parameter
@@ -25,56 +25,53 @@ function isMovieAlreadyInWatchlist(movieId) {
 
 */
 
-function addMovieToWatchlist(movieID) {
+function addMovieToWatchlist(movieId) {
   const savedMovies = JSON.parse(localStorage.getItem("movies")) || [];
 
   const movieAlreadyInWatchlist = savedMovies.some(
-    (movie) => movie.imdbID === movieID
+    (movie) => movie.imdbID === movieId
   );
 
   if (movieAlreadyInWatchlist) {
-    alert("This movie is already in your watchlist!");
+    removeMovie(movieId);
     return;
   }
 
-  const movieToAdd = moviesArray.find((movie) => movie.imdbID === movieID);
+  const movieToAdd = moviesArray.find((movie) => movie.imdbID === movieId);
   savedMovies.push(movieToAdd);
   localStorage.setItem("movies", JSON.stringify(savedMovies));
 
-  const watchlistBtn = document.querySelector(`[data-id="${movieID}"]`);
+  const watchlistBtn = document.querySelector(`[data-id="${movieId}"]`);
   watchlistBtn.setAttribute("data-added", "true");
-  const plusIcon = watchlistBtn.querySelector(".plus-icon");
-  plusIcon.classList.add("hidden");
+  watchlistBtn.innerHTML = `
+  <img class="remove-icon" data-id="${movieId}" src="images/Remove.png">
+  Remove
+`;
+
   const removeIcon = watchlistBtn.querySelector(".remove-icon");
   removeIcon.classList.remove("hidden");
 }
 
-function removeMovie(movieID) {
+function removeMovie(movieId) {
   const savedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+  const updatedMovies = savedMovies.filter((movie) => movie.imdbID !== movieId);
+  localStorage.setItem("movies", JSON.stringify(updatedMovies));
 
-  const movieIndex = savedMovies.findIndex((movie) => movie.imdbID === movieID);
-
-  if (movieIndex !== -1) {
-    savedMovies.splice(movieIndex, 1);
-    localStorage.setItem("movies", JSON.stringify(savedMovies));
-
-    const watchlistBtn = document.querySelector(`[data-id="${movieID}"]`);
-    watchlistBtn.setAttribute("data-added", "false");
-    const plusIcon = watchlistBtn.querySelector(".plus-icon");
-    plusIcon.classList.remove("hidden");
-    const removeIcon = watchlistBtn.querySelector(".remove-icon");
-    removeIcon.classList.add("hidden");
-  }
+  const watchlistBtn = document.querySelector(`[data-id="${movieId}"]`);
+  watchlistBtn.innerHTML = `
+  <img class="plus-icon" data-id="${movieId}" src="images/plus-icon.png">
+  Watchlist
+`;
 }
 
 function toggleWatchlist(event) {
-  const movieID = event.target.getAttribute("data-id");
+  const movieId = event.target.getAttribute("data-id");
   const added = event.target.getAttribute("data-added");
 
   if (added === "true") {
-    removeMovie(movieID);
+    removeMovie(movieId);
   } else {
-    addMovieToWatchlist(movieID);
+    addMovieToWatchlist(movieId);
   }
 }
 

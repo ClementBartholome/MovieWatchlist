@@ -15,6 +15,7 @@ const swiper = new Swiper(".swiper", {
   // If we need pagination
   pagination: {
     el: ".swiper-pagination",
+    dynamicBullets: true,
   },
 
   // Navigation arrows
@@ -88,6 +89,8 @@ function toggleWatchlist(event) {
     addMovieToWatchlist(movieId);
   }
 }
+
+window.toggleWatchlist = toggleWatchlist;
 
 function displayMovies() {
   fetch(

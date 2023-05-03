@@ -21,7 +21,6 @@ function displayMovies() {
   }
 
   // If movies are saved, display each one's content
-
   if (savedMovies.length > 0) {
     for (let i = 0; i < savedMovies.length; i++) {
       mainWatchlist.innerHTML += `

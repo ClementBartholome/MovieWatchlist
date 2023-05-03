@@ -12,26 +12,16 @@ const main = document.getElementById("main");
 const moviesArray = [];
 const moviesWatchlist = [];
 
-/* 
-
-function isMovieAlreadyInWatchlist(movieId) {
-  // Get movie watchlist from local storage
-  // if there's no watchlist, initialize an empty arr
-  const savedMovies = JSON.parse(localStorage.getItem("movies")) || [];
-  // use some method to check if there's one item with the movieId passed in as a parameter
-  // if yes, return true
-  return savedMovies.some((movie) => movie.imdbID === movieId);
-}
-
-*/
-
 function addMovieToWatchlist(movieId) {
+  // Retrieve saved movies from local storage, or create an empty array if none exist
   const savedMovies = JSON.parse(localStorage.getItem("movies")) || [];
 
+  // Check if the movie is already in the watchlist
   const movieAlreadyInWatchlist = savedMovies.some(
     (movie) => movie.imdbID === movieId
   );
 
+  // If the movie is already in the watchlist, remove it
   if (movieAlreadyInWatchlist) {
     removeMovie(movieId);
     return;
@@ -41,6 +31,7 @@ function addMovieToWatchlist(movieId) {
   savedMovies.push(movieToAdd);
   localStorage.setItem("movies", JSON.stringify(savedMovies));
 
+  // Update the watchlist button to indicate that the movie has been added
   const watchlistBtn = document.querySelector(`[data-id="${movieId}"]`);
   watchlistBtn.setAttribute("data-added", "true");
   watchlistBtn.innerHTML = `
@@ -54,9 +45,11 @@ function addMovieToWatchlist(movieId) {
 
 function removeMovie(movieId) {
   const savedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+  // Filter the saved movies array to remove the movie with the specified ID
   const updatedMovies = savedMovies.filter((movie) => movie.imdbID !== movieId);
   localStorage.setItem("movies", JSON.stringify(updatedMovies));
 
+  // Update the watchlist button to indicate that the movie has been removed
   const watchlistBtn = document.querySelector(`[data-id="${movieId}"]`);
   watchlistBtn.innerHTML = `
   <img class="plus-icon" data-id="${movieId}" src="images/plus-icon.png">
@@ -68,6 +61,7 @@ function toggleWatchlist(event) {
   const movieId = event.target.getAttribute("data-id");
   const added = event.target.getAttribute("data-added");
 
+  // If the movie is already in the watchlist, remove it. Otherwise, add it to the watchlist.
   if (added === "true") {
     removeMovie(movieId);
   } else {
@@ -86,6 +80,7 @@ function displayMovies() {
         main.innerHTML = `<p class="error-msg">Unable to find what you’re looking for. Please try another search.</p>`;
         return;
       }
+      // If there are search results, loop through them and fetch more detailed movie information for each one
       for (let i = 0; i < searchResultArr.length; i += 1) {
         fetch(
           `https://www.omdbapi.com/?apikey=ab1b683f&i=${searchResultArr[i].imdbID}&type=movie`
@@ -106,6 +101,7 @@ function displayMovies() {
             const movieId = searchResultArr[i].imdbID;
             const savedMovies =
               JSON.parse(localStorage.getItem("movies")) || [];
+            // checks if the current movie is already in the user's watchlist
             const movieAlreadyInWatchlist = savedMovies.some(
               (movie) => movie.imdbID === movieId
             );

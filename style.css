@@ -176,8 +176,17 @@ main {
 
 .movie-details {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: center;
+}
+
+.movie-details span {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.movie-details button {
+  font-size: 1rem;
 }
 
 .icon {

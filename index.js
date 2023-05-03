@@ -155,3 +155,12 @@ searchBtn.addEventListener("click", () => {
   displayMovies();
   inputEl.value = "";
 });
+
+document.addEventListener("keypress", (event) => {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    main.innerHTML = "";
+    displayMovies();
+    inputEl.value = "";
+  }
+});

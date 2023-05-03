@@ -12,6 +12,10 @@
       href="https://fonts.googleapis.com/css2?family=Arima:wght@300;400;700&family=Inter:wght@300;400;900&display=swap"
       rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <!--SWIPER-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   </head>
   <body>
     <div class="container">
@@ -33,30 +37,31 @@
           <img src="images/Icon.png" alt="" />
           <p>Start exploring</p>
         </div>
-        <!--
-        <div class="movie">
-          <img src="images/poster.png" alt="Movie Poster" />
-          <div class="movie-description">
-            <div class="movie-title">
-              <h3>Blade Runner</h3>
-              <img class="icon" src="images/star-icon.png" alt="#" />
-              <span>8.1</span>
-            </div>
-            <div class="movie-details">
-              <span>117 min</span>
-              <span>Action, Drama, Sci-fi</span>
-              <img class="icon" src="images/plus-icon.png" alt="#" />
-              <span>Watchlist</span>
-            </div>
-            <p>
-              A blade runner must pursue and terminate four replicants who stole
-              a ship in space, and have returned to Earth to find their creator.
-            </p>
-          </div>
+        <div class="swiper-container">
+          <div class="swiper-wrapper"></div>
+          <div class="swiper-pagination"></div>
         </div>
-        -->
       </main>
     </div>
     <script src="index.js"></script>
+    <!--SWIPER-->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+      const mySwiper = new Swiper(".swiper-container", {
+        // Optional parameters
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+          el: ".swiper-pagination",
+        },
+
+        // Navigation arrows
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
   </body>
 </html>

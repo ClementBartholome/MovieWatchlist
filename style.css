@@ -167,6 +167,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-left: 5px;
 }
 
 .movie-title {
@@ -176,8 +177,16 @@ main {
 
 .movie-details {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: center;
+}
+
+.movie-details span {
+  font-size: 0.8rem;
+}
+
+.movie-details button {
+  font-size: 1.2rem;
 }
 
 .icon {

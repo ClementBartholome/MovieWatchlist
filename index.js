@@ -6,9 +6,29 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
+
+const swiper = new Swiper(".swiper", {
+  // Optional parameters
+  direction: "horizontal",
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: ".swiper-pagination",
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
+
 const inputEl = document.getElementById("input");
 const searchBtn = document.getElementById("search-btn");
 const main = document.getElementById("main");
+const swiperHtml = document.getElementById("swiper-wrapper");
+const placeholderText = document.querySelector(".placeholder");
 const moviesArray = [];
 const moviesWatchlist = [];
 
@@ -118,7 +138,8 @@ function displayMovies() {
               `;
             }
 
-            main.innerHTML += `
+            swiperHtml.innerHTML += `
+            <div class="swiper-slide">
               <div class="movie" id="${movieId}">
                 <img src="${searchResultArr[i].Poster}" alt="Movie Poster" />
                 <div class="movie-description">
@@ -137,6 +158,7 @@ function displayMovies() {
                   <p>${movieInfo.Plot}</p>
                 </div>
               </div>
+            </div>
             `;
           });
       }
@@ -151,7 +173,8 @@ function displayMovies() {
 /* Event listeners */
 
 searchBtn.addEventListener("click", () => {
-  main.innerHTML = "";
+  placeholderText.innerHTML = "";
+  swiperHtml.innerHTML = "";
   displayMovies();
   inputEl.value = "";
 });
@@ -159,7 +182,8 @@ searchBtn.addEventListener("click", () => {
 document.addEventListener("keypress", (event) => {
   // If the user presses the "Enter" key on the keyboard
   if (event.key === "Enter") {
-    main.innerHTML = "";
+    placeholderText.innerHTML = "";
+    swiperHtml.innerHTML = "";
     displayMovies();
     inputEl.value = "";
   }

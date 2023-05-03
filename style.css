@@ -151,6 +151,7 @@ input {
 .movie > img {
   width: 98px;
   height: 150px;
+  object-fit: cover;
 }
 
 .movie-description {

@@ -76,21 +76,19 @@ function toggleWatchlist(event) {
 }
 
 function displayMovies() {
-  fetch(`https://www.omdbapi.com/?apikey=ab1b683f&s=${inputEl.value}`)
+  fetch(
+    `https://www.omdbapi.com/?apikey=ab1b683f&s=${inputEl.value}&type=movie`
+  )
     .then((response) => response.json())
     .then((data) => {
-      // store all results in an array
       const searchResultArr = data.Search;
-      // check if there are results
       if (!searchResultArr || searchResultArr.length === 0) {
-        // if not, create error message element
         main.innerHTML = `<p class="error-msg">Unable to find what you’re looking for. Please try another search.</p>`;
         return;
       }
-      // loop to display all movie results
       for (let i = 0; i < searchResultArr.length; i += 1) {
         fetch(
-          `https://www.omdbapi.com/?apikey=ab1b683f&i=${searchResultArr[i].imdbID}`
+          `https://www.omdbapi.com/?apikey=ab1b683f&i=${searchResultArr[i].imdbID}&type=movie`
         )
           .then((response) => response.json())
           .then((data) => {
@@ -104,36 +102,53 @@ function displayMovies() {
               Genre: movieInfo.Genre,
               Plot: movieInfo.Plot,
             });
-            main.innerHTML += `<div class="movie" id="${searchResultArr[i].imdbID}">
-        <img src="${searchResultArr[i].Poster}" alt="Movie Poster" />
-        <div class="movie-description">
-          <div class="movie-title">
-            <h3>${movieInfo.Title}</h3>
-            <img class="icon" src="images/star-icon.png" alt="#" />
-            <span>${movieInfo.Ratings[0].Value}</span>
-          </div>
-          <div class="movie-details">
-            <span>${movieInfo.Runtime}</span>
-            <span>${movieInfo.Genre}</span>
-            <button class="add-watchlist" data-id="${movieInfo.imdbID}" data-added="false" onClick="toggleWatchlist(event)">
-              <img class="plus-icon" data-id="${movieInfo.imdbID}" src="images/plus-icon.png">
-              <img class="remove-icon hidden" data-id="${movieInfo.imdbID}" src="images/Remove.png">
+
+            const movieId = searchResultArr[i].imdbID;
+            const savedMovies =
+              JSON.parse(localStorage.getItem("movies")) || [];
+            const movieAlreadyInWatchlist = savedMovies.some(
+              (movie) => movie.imdbID === movieId
+            );
+
+            let watchlistBtnHtml = `
+              <img class="plus-icon" data-id="${movieId}" src="images/plus-icon.png">
               Watchlist
-            </button>
-          </div>
-          <p>
-          ${movieInfo.Plot}
-          </p>
-        </div>
-      </div>
-        `;
+            `;
+
+            if (movieAlreadyInWatchlist) {
+              watchlistBtnHtml = `
+                <img class="remove-icon" data-id="${movieId}" src="images/Remove.png">
+                Remove
+              `;
+            }
+
+            main.innerHTML += `
+              <div class="movie" id="${movieId}">
+                <img src="${searchResultArr[i].Poster}" alt="Movie Poster" />
+                <div class="movie-description">
+                  <div class="movie-title">
+                    <h3>${movieInfo.Title}</h3>
+                    <img class="icon" src="images/star-icon.png" alt="#" />
+                    <span>${movieInfo.Ratings[0].Value}</span>
+                  </div>
+                  <div class="movie-details">
+                    <span>${movieInfo.Runtime}</span>
+                    <span>${movieInfo.Genre}</span>
+                    <button class="add-watchlist" data-id="${movieId}" data-added="${movieAlreadyInWatchlist}" onClick="toggleWatchlist(event)">
+                      ${watchlistBtnHtml}
+                    </button>
+                  </div>
+                  <p>${movieInfo.Plot}</p>
+                </div>
+              </div>
+            `;
           });
       }
     })
     .catch((error) => {
       console.error("Error:", error);
       document.getElementById("error-message").innerHTML =
-        "<p>An error occurred while fetching the data. Please try again later.</p>";
+        "<p>An error occurred while searching for movies. Please try again later.</p>";
     });
 }
 

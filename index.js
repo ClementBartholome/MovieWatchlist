@@ -91,7 +91,7 @@ function displayMovies() {
     .then((data) => {
       const searchResultArr = data.Search;
       if (!searchResultArr || searchResultArr.length === 0) {
-        main.innerHTML = `<p class="error-msg">Unable to find what you’re looking for. Please try another search.</p>`;
+        main.innerHTML = `<p class="error-msg">Unable to find what you’re looking for. Please refresh the page and try another search.</p>`;
         return;
       }
       // If there are search results, loop through them and fetch more detailed movie information for each one

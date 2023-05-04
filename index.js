@@ -53,9 +53,10 @@ function addMovieToWatchlist(movieId) {
   <img class="remove-icon" data-id="${movieId}" src="images/Remove.png">
   Remove
 `;
-
+  /*
   const removeIcon = watchlistBtn.querySelector(".remove-icon");
   removeIcon.classList.remove("hidden");
+  */
 }
 
 function removeMovie(movieId) {

@@ -134,6 +134,8 @@ main button:hover {
 main {
   padding-inline: 1rem;
   margin-inline: auto;
+  background: hsl(0, 0%, 94%);
+  border-radius: 30px;
 }
 
 .placeholder {

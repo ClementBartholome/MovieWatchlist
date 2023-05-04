@@ -17,12 +17,6 @@ const swiper = new Swiper(".swiper", {
     el: ".swiper-pagination",
     dynamicBullets: true,
   },
-
-  // Navigation arrows
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
 });
 
 const inputEl = document.getElementById("input");

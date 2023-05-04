@@ -24,10 +24,6 @@ button {
   background: white;
 }
 
-input {
-  font-size: 1rem;
-}
-
 .container {
   max-width: 36rem;
   height: 100vh;
@@ -57,6 +53,11 @@ a {
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a:hover {
+  transform: scale(0.95);
 }
 
 .search-bar {
@@ -79,6 +80,17 @@ input {
   width: 19rem;
   height: 38px;
   padding: 5px;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+input:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+input:active {
+  transform: scale(0.95);
 }
 
 .search-icon {
@@ -98,6 +110,8 @@ input {
 
 .search-btn:hover {
   cursor: pointer;
+  transform: scale(0.95);
+  border: 2px solid lightgrey;
 }
 
 ::placeholder {
@@ -111,6 +125,7 @@ input {
 
 main button:hover {
   transform: scale(1.1);
+  transition: all ease-in-out 250ms;
   cursor: pointer;
 }
 

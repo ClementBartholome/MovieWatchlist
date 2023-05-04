@@ -124,8 +124,8 @@ input:active {
 }
 
 main button:hover {
-  transform: scale(1.1);
-  transition: all ease-in-out 250ms;
+  transform: scale(0.95);
+  transition: all ease-in-out 100ms;
   cursor: pointer;
 }
 
